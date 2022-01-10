@@ -7,7 +7,7 @@ Based on kripthor MiclocV2 project found at https://ruralhacker.blogspot.com/p/m
 
 What you will need
 1 Arduino Teensy 3.1/3.2;
-1 DTH11/DTH22 (not tested) mics;
+1 DTH11/DTH22 (not tested) sensor;
 4 Electret Microphone Amplifier Module MAX4466 Adjustable Gain Blue Breakout Board or similar;
 1 Breadboard;
 
