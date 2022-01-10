@@ -11,10 +11,12 @@ https://developers.google.com/maps/documentation/android-sdk/map-with-marker for
 
 
 What you will need
-1 Arduino Teensy 3.1/3.2;
-1 DTH11/DTH22 (not tested) sensor;
-4 Electret Microphone Amplifier Module MAX4466 Adjustable Gain Blue Breakout Board or similar;
-1 Breadboard;
+1 Arduino Teensy 3.1/3.2;\n
+1 DTH11/DTH22 (not tested) sensor;\n
+4 Electret Microphone Amplifier Module MAX4466 Adjustable Gain Blue Breakout Board or similar;\n
+1 Breadboard;\n
 
 Also to get the Android part to run you will have to get a API key to access google maps API. Instructions are found here  
 https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+The code is AS IS! and not optimized
