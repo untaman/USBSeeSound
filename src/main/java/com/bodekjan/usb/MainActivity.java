@@ -20,6 +20,9 @@ import android.hardware.usb.UsbManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.NoCopySpan;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NoCopySpan {
     public final String ACTION_USB_PERMISSION = "com.bodekjan.usb.USB_PERMISSION";
     Button startButton, sendButton, clearButton, stopButton;
     TextView textView;
@@ -79,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+
+
+
+
     private final  BroadcastReceiver broadcastReceiver = new BroadcastReceiver() { //Broadcast Receiver to automatically start and stop the Serial connection.
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -139,8 +147,22 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(broadcastReceiver, filter);
         hl= new Heavylifting();
         textView.setText("p: to get temp data hit a few time until you get some numbers\ns: sound buffer data \n +: increase sound threshold by 5 \n -: decrease sound threshold by 5\n");
+        textView.addTextChangedListener(new TextWatcher() {
 
+            public void afterTextChanged(Editable s) {
+
+                String location = GetLocandandBearing();
+                array.add(location);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
     }
+
+
+
 
     public void setUiEnabled(boolean bool) {
         startButton.setEnabled(!bool);
@@ -185,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
         String string = editText.getText().toString();
         serialPort.write(string.getBytes());
-       // tvAppend(textView, "\nData Sent : " + string + "\n");
+        // tvAppend(textView, "\nData Sent : " + string + "\n");
 
     }
 
@@ -195,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
         tvAppend(textView,"\nSerial Connection Closed! \n");
 
     }
-
 
 
 
@@ -286,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
 
                 fields = tempData.split(",");
                 timeSamplesUSec = Integer.parseInt(fields[1]);
-               // Toast.makeText(this, "You got timeSamplesUSec:" + timeSamplesUSec, duration).show();
+                // Toast.makeText(this, "You got timeSamplesUSec:" + timeSamplesUSec, duration).show();
                 nSamples = Integer.parseInt(fields[3]);
                 //Toast.makeText(this, "You got nSamples:" + nSamples, duration).show();
                 samplesPerUsec = Double.parseDouble(fields[5]);
@@ -318,8 +339,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //PARSE SOUND BUFFER DATA
 
-                //typical bufferdata
-                //"BUFFSIZE: 2048 Event: 628\n" + "poop\n" + "fart\n" + "dookie\n" + "poo\n";
+               
 
                 System.out.println("|bufferData:|\t" + bufferData);
                 System.out.flush();
@@ -455,9 +475,17 @@ public class MainActivity extends AppCompatActivity {
                     Location gps_loc = null;
                     Location network_loc = null;
                     Location final_loc;
-                    double longitude;
-                    double latitude;
-                    double bearing = 0;
+                    String loc = array.get(0);
+                    String[] cut;
+                    cut =loc.split(",");
+                    String lat = cut[1];
+                    double latitude = Double.parseDouble(lat);
+                    String lon = cut[3];
+                    double longitude = Double.parseDouble(lon);
+                    String bear = cut[5];
+                    double bearing = Double.parseDouble(bear);
+
+
                     LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                     MapsMarkerActivity map = new MapsMarkerActivity();
 
@@ -478,13 +506,13 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if (gps_loc != null) {
-                        final_loc = gps_loc;
-                        latitude = final_loc.getLatitude();
-                        longitude = final_loc.getLongitude();
-                        Log.i("Here", "your1 location lat: " + latitude + "long:" + longitude);
-                        //bearing = gps_loc.getBearing();
-                        //bearing = -57;
-                        Log.i("Here", "your1 bearing lat: " + bearing);
+//                        final_loc = gps_loc;
+//                        latitude = final_loc.getLatitude();
+//                        longitude = final_loc.getLongitude();
+//                        Log.i("Here", "your1 location lat: " + latitude + "long:" + longitude);
+//                        //bearing = gps_loc.getBearing();
+//                        //bearing = -57;
+//                        Log.i("Here", "your1 bearing lat: " + bearing);
 
 
 
@@ -527,11 +555,7 @@ public class MainActivity extends AppCompatActivity {
 
                     } else if (network_loc != null) {
                         final_loc = network_loc;
-                        latitude = final_loc.getLatitude();
-                        longitude = final_loc.getLongitude();
-                        Log.i("Here", "your2 location lat: " + latitude + "long:" + longitude);
-                        bearing = network_loc.getBearing();
-                        Log.i("Here", "your1 bearing lat: " + bearing);
+
 
                         double pi = Math.PI;
                         //TODO use bearing to correctly calculate new lat/lon
@@ -637,11 +661,7 @@ public class MainActivity extends AppCompatActivity {
                 // System.out.println("RESync...");
                 try {
                     Thread.sleep(200);
-//                            micloc.serialOut.write("p");
-//                            micloc.serialOut.flush();
-//                            String aux = micloc.serialIn.readLine();
-//                            System.out.println(aux);
-//                            System.out.println("Done...");
+
                 } catch (Exception e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -704,4 +724,77 @@ public class MainActivity extends AppCompatActivity {
 
         return ret;
     }
+
+    @SuppressLint("MissingPermission")
+    public String GetLocandandBearing(){
+        //////////////////////////////////////////////
+        /////new
+        ////////////////////////////////////////////////////
+        //get your gps location and bearing
+
+        Location gps_loc = null;
+        Location network_loc = null;
+        Location final_loc;
+        double longitude;
+        double latitude;
+        double bearing;
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+//                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                        && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                        && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+//
+//                    return;
+//                }
+
+        try {
+
+            gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            network_loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+
+        if (gps_loc != null) {
+            final_loc = gps_loc;
+            latitude = final_loc.getLatitude();
+            longitude = final_loc.getLongitude();
+            //Log.i("Here", "your1 location lat: " + latitude + "long:" + longitude);
+            bearing = gps_loc.getBearing();
+            //bearing = -57;
+            //Log.i("Here", "your1 bearing lat: " + bearing);
+            String location = "lat," + latitude +",long," + longitude +",bearing," + bearing;
+
+            return location;
+
+        } else if (network_loc != null) {
+            final_loc = network_loc;
+            latitude = final_loc.getLatitude();
+            longitude = final_loc.getLongitude();
+            //Log.i("Here", "your2 location lat: " + latitude + "long:" + longitude);
+            bearing = network_loc.getBearing();
+            //Log.i("Here", "your1 bearing lat: " + bearing);
+
+            String location = "lat," + latitude +",long," + longitude +",bearing," + bearing ;
+            return location;
+
+
+        } else {
+            latitude = 0.0;
+            longitude = 0.0;
+            // Log.i("Here", "your3 location lat: " + latitude + "long:" + longitude);
+            bearing = 0;
+            //Log.i("Here", "your1 bearing lat: " + bearing);
+            String location = "lat," + latitude +",long," + longitude +",bearing," + bearing ;
+
+            return location;
+        }
+
+    }
+
+
+
+
+
 }
