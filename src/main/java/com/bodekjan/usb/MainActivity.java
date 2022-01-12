@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NoCopySpan {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         registerReceiver(broadcastReceiver, filter);
         hl= new Heavylifting();
-        textView.setText("p: to get temp data hit a few time until you get some numbers\ns: sound buffer data \n +: increase sound threshold by 5 \n -: decrease sound threshold by 5\n");
+        textView.setText("CLEAR THIS BEFORE YOU START SAMPLING!\n p: to get temp data hit a few time until you get some numbers\ns: sound buffer data \n +: increase sound threshold by 5 \n -: decrease sound threshold by 5\n");
         
         //get location when textView changes which corresponds the event of receiveing from USB which is directly related to a sound event if clear
         textView.addTextChangedListener(new TextWatcher() {
