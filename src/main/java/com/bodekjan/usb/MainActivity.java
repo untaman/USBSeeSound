@@ -226,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements NoCopySpan {
     @SuppressLint("MissingPermission")
     public void onClickClear(View view) {
         textView.setText(" ");
+        array.clear();
 //        byte[] b = new byte[0];
 //
 //        mCallback.onReceivedData(b);
