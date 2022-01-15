@@ -16,6 +16,7 @@ What you will need<br />
 4 Electret Microphone Amplifier Module MAX4466 Adjustable Gain Blue Breakout Board or similar;<br /> 
 1 Breadboard;<br /> 
 Assorted wiring;<br /> 
+A way to attach a micro USB B to your phone
 
 Also to get the Android part to run you will have to get a API key to access google maps API. Instructions are found here  
 https://developers.google.com/maps/documentation/android-sdk/get-api-key
