@@ -3,12 +3,12 @@ USB MiclocV2 for Android Proof of Concept. What this does is to allow a individu
 location relative to small microphone array location. This, with the assistance of an Android phone, allows the individual to get a gps coordinates and use Google Maps
 API to drop a pin at the calculated sounds location. This pin is visible on Google Maps' top down view and also Google Maps' AR viewer. Allowing the individual to see in Augmented Realty the approximate origin of the sound via an Android phone. 
 
-Based on kripthor MiclocV2 project found at https://ruralhacker.blogspot.com/p/micloc.html for sound location and wiring diagram;
+Based on kripthor MiclocV2 project found at https://ruralhacker.blogspot.com/p/micloc.html for sound location;
 repos https://github.com/kripthor/teensy31-micloc-java for Java and here https://github.com/kripthor/teensy31-micloc for Arduino Teensy;
 https://www.allaboutcircuits.com/projects/communicate-with-your-arduino-through-android/ for Arduino to Android USB communication;
 https://developers.google.com/maps/documentation/android-sdk/map-with-marker for Google Maps API use;
 
-
+Wiring Diagram: taken from and all credit to kripthor MiclocV2 project found at https://ruralhacker.blogspot.com/p/micloc.html 
 
 What you will need
 1 Arduino Teensy 3.1/3.2;
@@ -20,3 +20,4 @@ Also to get the Android part to run you will have to get a API key to access goo
 https://developers.google.com/maps/documentation/android-sdk/get-api-key
 
 The code is AS IS! and not optimized
+![wiring diagram](https://user-images.githubusercontent.com/97481499/149629864-acce0c47-5563-470d-a3a1-85c5092f00f6.png)
