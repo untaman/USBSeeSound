@@ -8,7 +8,7 @@ repos https://github.com/kripthor/teensy31-micloc-java for Java and here https:/
 https://www.allaboutcircuits.com/projects/communicate-with-your-arduino-through-android/ for Arduino to Android USB communication;
 https://developers.google.com/maps/documentation/android-sdk/map-with-marker for Google Maps API use;
 
-Wiring Diagram: taken from and all credit to kripthor MiclocV2 project found at https://ruralhacker.blogspot.com/p/micloc.html 
+
 
 What you will need
 1 Arduino Teensy 3.1/3.2;
@@ -19,5 +19,7 @@ What you will need
 Also to get the Android part to run you will have to get a API key to access google maps API. Instructions are found here  
 https://developers.google.com/maps/documentation/android-sdk/get-api-key
 
+Wiring Diagram: taken from and all credit to kripthor MiclocV2 project found at https://ruralhacker.blogspot.com/p/micloc.html 
+![wiring diagram](https://user-images.githubusercontent.com/97481499/149629940-39481cfd-9298-4d0b-94be-99061c1a6706.jpg)
+
 The code is AS IS! and not optimized
-![wiring diagram](https://user-images.githubusercontent.com/97481499/149629864-acce0c47-5563-470d-a3a1-85c5092f00f6.png)
