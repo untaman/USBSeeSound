@@ -10,7 +10,7 @@ https://developers.google.com/maps/documentation/android-sdk/map-with-marker for
 
 
 
-What you will need
+What you will need<br /> 
 1 Arduino Teensy 3.1/3.2;<br /> 
 1 DTH11/DTH22 ( DTH22 not tested) sensor;<br /> 
 4 Electret Microphone Amplifier Module MAX4466 Adjustable Gain Blue Breakout Board or similar;<br /> 
