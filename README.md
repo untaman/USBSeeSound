@@ -22,6 +22,7 @@ Also to get the Android part to run you will have to get a API key to access goo
 https://developers.google.com/maps/documentation/android-sdk/get-api-key
 
 Wiring Diagram: taken from and all credit to kripthor MiclocV2 project found at https://ruralhacker.blogspot.com/p/micloc.html 
+
 ![wiring diagram](https://user-images.githubusercontent.com/97481499/149629940-39481cfd-9298-4d0b-94be-99061c1a6706.jpg)
 
 The code is AS IS! and not optimized
